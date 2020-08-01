@@ -1778,7 +1778,7 @@ void Sema::CheckBreakContinueBinding(Expr *E) {
 StmtResult Sema::ActOnForStmt(SourceLocation ForLoc, SourceLocation LParenLoc,
                               Stmt *First, ConditionResult Second,
                               FullExprArg third, SourceLocation RParenLoc,
-                              Stmt *Body) {
+                              Stmt *Body, bool is_four_statement) {
   if (Second.isInvalid())
     return StmtError();
 
@@ -1818,7 +1818,7 @@ StmtResult Sema::ActOnForStmt(SourceLocation ForLoc, SourceLocation LParenLoc,
 
   return new (Context)
       ForStmt(Context, First, Second.get().second, Second.get().first, Third,
-              Body, ForLoc, LParenLoc, RParenLoc);
+              Body, ForLoc, LParenLoc, RParenLoc, is_four_statement);
 }
 
 /// In an Objective C collection iteration statement:

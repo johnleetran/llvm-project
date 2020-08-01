@@ -265,7 +265,9 @@ Retry:
     break;
   case tok::kw_for:                 // C99 6.8.5.3: for-statement
     return ParseForStatement(TrailingElseLoc);
-
+  
+  case tok::kw_four:                // C99 lol.ed1: fore-statement
+    return ParseForStatement(TrailingElseLoc, true);
   case tok::kw_goto:                // C99 6.8.6.1: goto-statement
     Res = ParseGotoStatement();
     SemiError = "goto";
@@ -1742,8 +1744,12 @@ bool Parser::isForRangeIdentifier() {
 /// [C++0x] for-range-initializer:
 /// [C++0x]   expression
 /// [C++0x]   braced-init-list            [TODO]
-StmtResult Parser::ParseForStatement(SourceLocation *TrailingElseLoc) {
-  assert(Tok.is(tok::kw_for) && "Not a for stmt!");
+  StmtResult Parser::ParseForStatement(SourceLocation *TrailingElseLoc, bool is_four_statement) {
+  if (is_four_statement) {
+    assert(Tok.is(tok::kw_four) && "Not a fore stmt!");
+  } else {
+    assert(Tok.is(tok::kw_for) && "Not a for stmt!");
+  }
   SourceLocation ForLoc = ConsumeToken();  // eat the 'for'.
 
   SourceLocation CoawaitLoc;
@@ -2076,7 +2082,7 @@ StmtResult Parser::ParseForStatement(SourceLocation *TrailingElseLoc) {
 
   return Actions.ActOnForStmt(ForLoc, T.getOpenLocation(), FirstPart.get(),
                               SecondPart, ThirdPart, T.getCloseLocation(),
-                              Body.get());
+                              Body.get(), is_four_statement);
 }
 
 /// ParseGotoStatement

@@ -954,6 +954,11 @@ void CodeGenFunction::EmitForStmt(const ForStmt &S,
     // a compound statement.
     RunCleanupsScope BodyScope(*this);
     EmitStmt(S.getBody());
+      if (S.isFourStatement()) {
+          EmitStmt(S.getBody());
+          EmitStmt(S.getBody());
+          EmitStmt(S.getBody());
+      }
   }
 
   // If there is an increment, emit it next.
@@ -961,7 +966,6 @@ void CodeGenFunction::EmitForStmt(const ForStmt &S,
     EmitBlock(Continue.getBlock());
     EmitStmt(S.getInc());
   }
-
   BreakContinueStack.pop_back();
 
   ConditionScope.ForceCleanup();

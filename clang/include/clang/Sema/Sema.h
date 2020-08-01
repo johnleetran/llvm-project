@@ -4400,7 +4400,8 @@ public:
                           ConditionResult Second,
                           FullExprArg Third,
                           SourceLocation RParenLoc,
-                          Stmt *Body);
+                          Stmt *Body,
+                          bool is_four_statement=false);
   ExprResult CheckObjCForCollectionOperand(SourceLocation forLoc,
                                            Expr *collection);
   StmtResult ActOnObjCForCollectionStmt(SourceLocation ForColLoc,

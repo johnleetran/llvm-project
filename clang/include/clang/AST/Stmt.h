@@ -2459,13 +2459,16 @@ class ForStmt : public Stmt {
 public:
   ForStmt(const ASTContext &C, Stmt *Init, Expr *Cond, VarDecl *condVar,
           Expr *Inc, Stmt *Body, SourceLocation FL, SourceLocation LP,
-          SourceLocation RP);
+          SourceLocation RP, bool is_four_statement=false);
 
   /// Build an empty for statement.
   explicit ForStmt(EmptyShell Empty) : Stmt(ForStmtClass, Empty) {}
 
   Stmt *getInit() { return SubExprs[INIT]; }
-
+  bool FourStatement = false;
+    
+  bool isFourStatement() const { return FourStatement; }
+    
   /// Retrieve the variable declared in this "for" statement, if any.
   ///
   /// In the following example, "y" is the condition variable.
