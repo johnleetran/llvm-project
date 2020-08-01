@@ -1,3 +1,5 @@
+https://gist.github.com/geohot/97e56eb6a0725b54db661d8a91705d4d
+
 Arthur O’Dwyer - https://quuxplusone.github.io/blog/2019/11/09/llvm-from-scratch/
 
 cmake -G Ninja \
